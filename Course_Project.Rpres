@@ -1,0 +1,63 @@
+Course_Project
+========================================================
+author: Dawit Habtemariam
+date: 08/22/2014
+
+
+Introduction
+========================================================
+
+This is my RStudio presentation of my webpage. The webpage displays the
+following:
+
+- Choices of Y-Variables to plot over time
+- Choice of range of temperatures to plot under
+- Choice to display the basic statistics for each varaible
+
+Data Source: New York Air Quality Measurements in 1973 
+
+Variable Choices
+========================================================
+Your Y-variables to choose from are:
+
+- Ozone
+- Solar Radiation 
+- Wind
+
+```{r, echo=FALSE}
+library(ggplot2)
+data(airquality)
+date<-paste(airquality$Month,airquality$Day,sep="-")
+date<-paste("1973",date,sep="-")
+Time<-as.Date(date,"%Y-%m-%d")
+dataSet<-data.frame(airquality,Time)
+qplot(Time,Ozone,data=dataSet)+geom_smooth(method="lm")+ggtitle("Example Ozone over Time Plot")
+```
+
+Temperature Slider Feature
+========================================================
+
+The plot is displayed under your choice of temperature range.After choosing
+your temperature range the plot displays all of the points under that range of 
+temepratures.The following example displays the plot under the temperature range 63 to 81.
+
+
+```{r,echo=FALSE}
+
+qplot(Time,Ozone,data=subset(dataSet,dataSet$Temp<81 & dataSet$Temp>63),main="Example After Temp Change")+geom_smooth(method="lm")
+
+```
+
+Summary Statistics
+===
+You can choose to display the basic statistics of the variables by checking the checkbox.
+
+```{r,echo=FALSE}
+summary(dataSet)
+```
+
+===
+
+Thank You!
+
+
